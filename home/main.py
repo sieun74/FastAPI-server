@@ -4,14 +4,14 @@ import os
 import httpx
 import traceback
 
+load_dotenv()  # 이 줄 꼭 추가!
+
 app = FastAPI()
 
-# Groq API 설정
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama3-70b-8192"
 
-# 최대 대화 저장 수
 MAX_HISTORY = 10
 
 @app.websocket("/ws")
@@ -28,10 +28,8 @@ async def chat_with_groq(websocket: WebSocket):
                 user_input = await websocket.receive_text()
                 conversation.append({"role": "user", "content": user_input})
 
-                # 최근 대화만 유지
                 conversation = conversation[-MAX_HISTORY:]
 
-                # Groq API 호출
                 response = await client.post(
                     GROQ_API_URL,
                     headers={
