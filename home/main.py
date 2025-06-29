@@ -1,7 +1,8 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from dotenv import load_dotenv
+import os
 import httpx
 import traceback
-import os
 
 app = FastAPI()
 
