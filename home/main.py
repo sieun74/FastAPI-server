@@ -78,7 +78,7 @@ async def check_nature_mission(file: UploadFile = File(...)):
         traceback.print_exc()
         return JSONResponse(content={"error": str(e)}, status_code=500)
 
-GROQ_API_KEY = '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'
+GROQ_API_KEY = 'grop_your_API'
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama3-70b-8192"
 
