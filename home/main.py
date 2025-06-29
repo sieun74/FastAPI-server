@@ -5,7 +5,7 @@ import traceback
 app = FastAPI()
 
 # Groq API 설정
-GROQ_API_KEY = 'grop_api_key'
+GROQ_API_KEY = 'GROQ_API_KEY'
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama3-70b-8192"
 
