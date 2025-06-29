@@ -61,4 +61,4 @@ async def chat_with_groq(websocket: WebSocket):
         await websocket.send_text("❌ 서버에서 에러가 발생했습니다.")
     if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=3000)
