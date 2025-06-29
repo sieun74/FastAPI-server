@@ -1,2 +1,6 @@
 fastapi 
 uvicorn 
+Pillow
+httpx
+transformers
+torch
