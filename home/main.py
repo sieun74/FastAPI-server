@@ -1,17 +1,24 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from dotenv import load_dotenv
-import os
+from fastapi import FastAPI, UploadFile, File,WebSocket, WebSocketDisconnect
+import io
 import httpx
 import traceback
 
-load_dotenv()  # 이 줄 꼭 추가!
-
 app = FastAPI()
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+# CORS 허용 설정 (필요에 따라 도메인 변경 가능)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 예: ["http://localhost:3000"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+GROQ_API_KEY = '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'
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama3-70b-8192"
 
+# 최대 대화 저장 수
 MAX_HISTORY = 10
 
 @app.websocket("/ws")
@@ -28,8 +35,10 @@ async def chat_with_groq(websocket: WebSocket):
                 user_input = await websocket.receive_text()
                 conversation.append({"role": "user", "content": user_input})
 
+                # 최근 대화만 유지
                 conversation = conversation[-MAX_HISTORY:]
 
+                # Groq API 호출
                 response = await client.post(
                     GROQ_API_URL,
                     headers={
