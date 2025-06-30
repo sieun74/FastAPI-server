@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File,WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 import io
 import httpx
 import traceback
